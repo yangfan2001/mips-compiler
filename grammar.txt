@@ -1,0 +1,38 @@
+program -> returnValType ID ( functionParameterDeclaration ) statementBlock
+returnValType -> INT|VOID
+functionParameterDeclaration -> parameterDeclaration functionParameterDeclarationCommon|ε
+functionParameterDeclarationCommon -> , parameterDeclaration functionParameterDeclarationCommon|ε
+parameterDeclaration -> varType ID
+statementBlock -> { internalDeclaration statementChain }
+internalDeclaration -> internalVarDeclaration internalDeclarationCommon|ε
+internalVarDeclaration -> varType ID internalVarDeclarationCommon
+internalDeclarationCommon -> ; internalDeclaration|ε
+internalVarDeclarationCommon -> , INT internalVarDeclarationCommon|ε
+varType -> INT|SHORT
+statementChain -> statement statementChainCommon
+statementChainCommon -> statementChain|ε
+statement -> ifStatement|whileStatement|returnStatement|assignStatement
+assignStatement -> ID = expression ;
+returnStatement -> RETURN returnStatementCommon|ε
+returnStatementCommon -> ;|expression ;
+whileStatement -> WHILE ( expression ) statementBlock
+ifStatement -> IF ( expression ) statementBlock ifStatementCommon
+ifStatementCommon -> ELSE statementBlock|ε
+expression -> plusExpression expressionCommon
+expressionCommon ->comparator expression|ε
+comparator -> <|<=|>|>=|==|!=
+plusExpression -> item plusExpressionCommon
+plusExpressionCommon ->+ plusExpression|- plusExpression|ε
+item -> factor itemCommon
+itemCommon ->* item|/ item|ε
+factor -> ID|constant|( expression )
+
+
+['program','returnValType','functionParameterDeclaration','functionParameterDeclarationCommon',
+'parameterDeclaration','statementBlock','internalDeclaration','internalVarDeclaration','internalDeclarationCommon'
+,'internalVarDeclarationCommon','varType','statementChain','statementChainCommon','statement',
+'assignStatement','returnStatement','returnStatementCommon','whileStatement','ifStatement'
+,'ifStatementCommon','expression','expressionCommon','comparator','plusExpression','plusExpressionCommon','item',
+'itemCommon','factor']
+
+
